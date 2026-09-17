@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Company Risk Watch</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        header {
+            background: #101827;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        .hero {
+            background: white;
+            text-align: center;
+            padding: 75px 20px 65px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-bottom: 18px;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: auto;
+            color: #667085;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .scanner {
+            max-width: 700px;
+            margin: 35px auto 0;
+            padding: 25px;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 10px;
+        }
+
+        .scanner input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .scanner button {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .scanner button:hover {
+            background: #1d4ed8;
+        }
+
+        .error {
+            color: #b42318;
+            margin-top: 15px;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            padding: 55px 8%;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            width: 280px;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .icon {
+            font-size: 38px;
+        }
+
+        .card h3 {
+            margin: 15px 0 10px;
+        }
+
+        .card p {
+            color: #667085;
+            line-height: 1.5;
+        }
+
+        .info {
+            text-align: center;
+            padding: 20px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        footer {
+            background: #101827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .scanner {
+                flex-direction: column;
+            }
+
+            .scanner button {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        🛡 Company Risk Watch
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="#about">About</a>
+
+        <a href="#how">How It Works</a>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>
+        Company Risk Watch
+    </h1>
+
+    <p>
+        Analyze a company's public web security configuration
+        and identify potential security weaknesses using
+        non-invasive technical checks.
+    </p>
+
+
+    <form class="scanner" action="/analyze" method="POST">
+
+        <input
+            type="text"
+            name="company"
+            placeholder="Enter company domain, e.g. example.com"
+            required
+        >
+
+        <button type="submit">
+            Analyze Domain
+        </button>
+
+    </form>
+
+
+    {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+
+</section>
+
+
+<section class="features" id="how">
+
+
+    <div class="card">
+
+        <div class="icon">
+            🔍
+        </div>
+
+        <h3>
+            Domain Analysis
+        </h3>
+
+        <p>
+            Check whether the submitted domain is reachable
+            and properly configured.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="icon">
+            🔐
+        </div>
+
+        <h3>
+            Security Checks
+        </h3>
+
+        <p>
+            Examine HTTPS, TLS and common web security
+            headers.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="icon">
+            📊
+        </div>
+
+        <h3>
+            Risk Report
+        </h3>
+
+        <p>
+            Convert the observed findings into a simple
+            risk score and security recommendations.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<section class="info" id="about">
+
+    <p>
+        Company Risk Watch performs non-invasive checks on
+        publicly accessible web infrastructure.
+    </p>
+
+</section>
+
+
+<footer>
+
+    © 2026 Company Risk Watch | Cybersecurity Project
+
+</footer>
+
+
+</body>
+
+</html>
