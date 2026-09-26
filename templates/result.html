@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Risk Watch - Results</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .header {
+            background: #111827;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1000px;
+            margin: 35px auto;
+        }
+
+        .domain {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .domain h2 {
+            margin-bottom: 8px;
+        }
+
+        .risk-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        .risk-score {
+            font-size: 55px;
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-weight: bold;
+            background: #e5e7eb;
+        }
+
+        .findings {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .finding {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 0;
+        }
+
+        .finding:last-child {
+            border-bottom: none;
+        }
+
+        .finding h3 {
+            margin: 0 0 7px;
+            font-size: 17px;
+        }
+
+        .pass {
+            color: #15803d;
+        }
+
+        .review {
+            color: #b45309;
+        }
+
+        .fail {
+            color: #dc2626;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin: 5px;
+        }
+
+        .document-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .back-btn {
+            background: #374151;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🛡 Company Risk Watch</h1>
+    <span>Security Risk Analysis</span>
+</div>
+
+<div class="container">
+
+    <div class="domain">
+        <h2>Security Analysis Result</h2>
+        <p>
+            Domain analyzed:
+            <strong>{{ domain }}</strong>
+        </p>
+    </div>
+
+    <div class="risk-card">
+
+        <div class="risk-score">
+            {{ risk_score }}%
+        </div>
+
+        <div class="risk-level">
+            Risk Level: {{ risk_level }}
+        </div>
+
+    </div>
+
+    <div class="findings">
+
+        <h2>Security Findings</h2>
+
+        {% for finding in findings %}
+
+        <div class="finding">
+
+            <h3 class="
+                {% if finding.status == 'Pass' %}
+                    pass
+                {% elif finding.status == 'Fail' %}
+                    fail
+                {% else %}
+                    review
+                {% endif %}
+            ">
+                {{ finding.status }} — {{ finding.title }}
+            </h3>
+
+            <p>{{ finding.message }}</p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% if recommendations %}
+
+    <div class="findings" style="margin-top:25px;">
+
+        <h2>Recommendations</h2>
+
+        {% for recommendation in recommendations %}
+            <div class="finding">
+                <p>🔹 {{ recommendation }}</p>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    <div class="buttons">
+
+        <form action="/create-document" method="POST" style="display:inline;">
+            <input type="hidden" name="domain" value="{{ domain }}">
+            <input type="hidden" name="risk_score" value="{{ risk_score }}">
+            <button class="document-btn">
+                📄 Create Document
+            </button>
+        </form>
+
+        <button class="back-btn" onclick="window.location.href='/'">
+            ← Analyze Another Company
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>

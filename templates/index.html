@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Company Risk Watch</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, #172554, transparent 35%),
+        radial-gradient(circle at bottom right, #0f766e, transparent 30%),
+        #070b16;
+    color: white;
+    min-height: 100vh;
+}
+
+.navbar {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7%;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    background: rgba(7,11,22,.75);
+    backdrop-filter: blur(15px);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+.status {
+    font-size: 13px;
+    color: #86efac;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    margin-right: 7px;
+    box-shadow: 0 0 12px #22c55e;
+}
+
+.hero {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 90px 25px 50px;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid rgba(56,189,248,.3);
+    background: rgba(56,189,248,.08);
+    color: #7dd3fc;
+    border-radius: 30px;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1;
+    margin: 0;
+    letter-spacing: -3px;
+}
+
+.gradient {
+    background: linear-gradient(90deg,#38bdf8,#818cf8,#2dd4bf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    max-width: 700px;
+    margin: 25px auto 40px;
+    color: #aab4c8;
+    line-height: 1.7;
+    font-size: 17px;
+}
+
+.scan-card {
+    max-width: 720px;
+    margin: auto;
+    padding: 12px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: #111827;
+    color: white;
+    border-radius: 12px;
+    padding: 19px;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #64748b;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 0 28px;
+    background: linear-gradient(135deg,#2563eb,#7c3aed);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37,99,235,.35);
+}
+
+.error {
+    color: #fca5a5;
+    margin-top: 15px;
+}
+
+.features {
+    max-width: 950px;
+    margin: 60px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+}
+
+.feature {
+    padding: 25px 15px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.045);
+    border-radius: 15px;
+}
+
+.feature-icon {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.feature h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+}
+
+.feature p {
+    margin: 0;
+    color: #8490a5;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.footer {
+    text-align: center;
+    padding: 35px;
+    color: #526078;
+    font-size: 12px;
+}
+
+@media(max-width:700px) {
+
+    form {
+        flex-direction: column;
+    }
+
+    button {
+        padding: 17px;
+    }
+
+    .features {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🛡 Company <span>Risk Watch</span>
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        SYSTEM ONLINE
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="badge">
+        SECURITY INTELLIGENCE PLATFORM
+    </div>
+
+    <h1>
+        Company
+        <span class="gradient">Risk Watch</span>
+    </h1>
+
+    <p class="subtitle">
+
+        Analyze a company's public-facing domain security.
+        Check DNS resolution, HTTPS, TLS certificates,
+        security headers and available threat intelligence.
+
+    </p>
+
+
+    <div class="scan-card">
+
+        <form action="/analyze" method="POST">
+
+            <input
+                type="text"
+                name="domain"
+                placeholder="Enter domain  •  example.com"
+                required
+            >
+
+            <button type="submit">
+                🔍 ANALYZE
+            </button>
+
+        </form>
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <div class="feature-icon">🌐</div>
+
+            <h3>DNS ANALYSIS</h3>
+
+            <p>
+                Check whether the domain resolves correctly.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">🔐</div>
+
+            <h3>HTTPS SECURITY</h3>
+
+            <p>
+                Verify secure HTTPS connectivity.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">🛡️</div>
+
+            <h3>TLS ANALYSIS</h3>
+
+            <p>
+                Check the site's TLS certificate.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">⚙️</div>
+
+            <h3>SECURITY HEADERS</h3>
+
+            <p>
+                Inspect important HTTP security headers.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="footer">
+
+    COMPANY RISK WATCH • SECURITY ANALYSIS SYSTEM
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Security Report | Company Risk Watch</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #070b16;
+    color: white;
+}
+
+.nav {
+    padding: 22px 7%;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+.container {
+    max-width: 850px;
+    width: 90%;
+    margin: 50px auto;
+}
+
+.report {
+    background: white;
+    color: #172033;
+    padding: 50px;
+    border-radius: 15px;
+}
+
+.report-header {
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 25px;
+}
+
+.report-header h1 {
+    margin-bottom: 5px;
+}
+
+.domain {
+    color: #2563eb;
+}
+
+.score {
+    font-size: 55px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.level {
+    display: inline-block;
+    background: #eef2ff;
+    color: #3730a3;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.info {
+    margin-top: 30px;
+    line-height: 1.7;
+    color: #64748b;
+}
+
+.actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+}
+
+button,
+a {
+    padding: 14px 22px;
+    border-radius: 9px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.download {
+    background: #2563eb;
+    color: white;
+}
+
+.back {
+    background: #172033;
+    color: white;
+}
+
+@media(max-width:600px) {
+
+    .report {
+        padding: 25px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav class="nav">
+
+    <div class="logo">
+        🛡 Company <span>Risk Watch</span>
+    </div>
+
+</nav>
+
+
+<div class="container">
+
+    <div class="report">
+
+        <div class="report-header">
+
+            <p>
+                SECURITY ANALYSIS REPORT
+            </p>
+
+            <h1>
+                Company Risk Watch
+            </h1>
+
+            <h2 class="domain">
+                {{ domain }}
+            </h2>
+
+        </div>
+
+
+        <div class="score">
+
+            {{ risk_score }}%
+
+        </div>
+
+
+        <div class="level">
+
+            {{ risk_level }} RISK
+
+        </div>
+
+
+        <div class="info">
+
+            <p>
+                <strong>Generated:</strong>
+                {{ generated_at }}
+            </p>
+
+            <p>
+                This report summarizes the security analysis
+                performed by Company Risk Watch.
+            </p>
+
+            <p>
+                The analysis includes domain resolution,
+                HTTPS availability, TLS certificate verification,
+                security headers and available threat intelligence.
+            </p>
+
+        </div>
+
+
+        <div class="actions">
+
+            <a href="/" class="back">
+                ← Back
+            </a>
+
+            <button
+                class="download"
+                onclick="window.print()">
+
+                🖨 Print / Save Report
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
