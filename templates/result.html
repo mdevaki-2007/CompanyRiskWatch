@@ -3,225 +3,1239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Company Risk Watch - Results</title>
 
     <style>
+
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(35, 75, 180, 0.20), transparent 35%),
+                radial-gradient(circle at 90% 80%, rgba(0, 220, 190, 0.14), transparent 35%),
+                #030817;
+            color: #f4f7ff;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        .header {
-            background: #111827;
-            color: white;
-            padding: 20px 8%;
+        /* ---------------- NAVBAR ---------------- */
+
+        .navbar {
+            height: 76px;
+            padding: 0 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            background: rgba(3, 10, 30, 0.82);
+            border-bottom: 1px solid rgba(80, 150, 255, 0.18);
+
+            backdrop-filter: blur(20px);
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 25px;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 21px;
+            font-weight: 700;
         }
+
+        .brand-shield {
+            width: 42px;
+            height: 48px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: linear-gradient(145deg, #19d8ff, #315cff);
+            clip-path: polygon(
+                50% 0%,
+                92% 16%,
+                86% 70%,
+                50% 100%,
+                14% 70%,
+                8% 16%
+            );
+
+            box-shadow: 0 0 25px rgba(0, 190, 255, .5);
+            color: white;
+            font-size: 21px;
+        }
+
+        .brand span {
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #36bfff,
+                #8c5cff
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .scan-status {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            color: #45ffd1;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #25f5bb;
+            box-shadow: 0 0 14px #25f5bb;
+        }
+
+        /* ---------------- MAIN ---------------- */
 
         .container {
-            width: 85%;
-            max-width: 1000px;
-            margin: 35px auto;
+            width: 92%;
+            max-width: 1450px;
+            margin: auto;
+            padding: 42px 0 30px;
+        }
+
+        /* ---------------- HERO ---------------- */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr .8fr .8fr;
+            align-items: center;
+            gap: 35px;
+
+            min-height: 250px;
+            padding: 25px 10px 40px;
+        }
+
+        .hero-label {
+            display: inline-block;
+
+            padding: 8px 17px;
+            border-radius: 25px;
+
+            background: linear-gradient(
+                90deg,
+                #173ec8,
+                #603bdb
+            );
+
+            border: 1px solid #3e9cff;
+
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+
+            box-shadow: 0 0 20px rgba(60, 100, 255, .25);
+        }
+
+        .hero h1 {
+            margin-top: 16px;
+
+            font-size: clamp(38px, 4vw, 58px);
+            line-height: 1.05;
+            font-weight: 800;
+        }
+
+        .gradient-text {
+            background: linear-gradient(
+                90deg,
+                #18cfff,
+                #5877ff,
+                #b347ff
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .domain-line {
+            margin-top: 18px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 16px;
+            color: #b9c9e8;
         }
 
         .domain {
+            color: white;
+            background: rgba(44, 84, 180, .25);
+            border: 1px solid rgba(83, 152, 255, .35);
+
+            padding: 7px 15px;
+            border-radius: 20px;
+
+            font-weight: 700;
+        }
+
+        .hero-description {
+            margin-top: 16px;
+
+            color: #91a5c9;
+            line-height: 1.7;
+            max-width: 520px;
+        }
+
+        /* ---------------- SCORE ---------------- */
+
+        .score-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .score-ring {
+            width: 205px;
+            height: 205px;
+
+            border-radius: 50%;
+
+            background:
+                conic-gradient(
+                    #27f1c1 calc(var(--score) * 1%),
+                    #142746 0
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+
+            box-shadow:
+                0 0 35px rgba(31, 240, 194, .25),
+                inset 0 0 30px rgba(0,0,0,.5);
+        }
+
+        .score-ring::before {
+            content: "";
+
+            position: absolute;
+
+            width: 165px;
+            height: 165px;
+
+            border-radius: 50%;
+
+            background: #071126;
+
+            box-shadow:
+                inset 0 0 25px rgba(0,0,0,.7);
+        }
+
+        .score-content {
+            position: relative;
             text-align: center;
-            margin-bottom: 25px;
+            z-index: 2;
         }
 
-        .domain h2 {
-            margin-bottom: 8px;
+        .score-number {
+            font-size: 42px;
+            font-weight: 800;
         }
 
-        .risk-card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
+        .score-label {
+            margin-top: 3px;
+
+            color: #9fb1d3;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 700;
         }
 
-        .risk-score {
-            font-size: 55px;
-            font-weight: bold;
-            margin: 10px;
+        .risk-pill {
+            margin-top: 13px;
+
+            padding: 9px 20px;
+
+            border-radius: 30px;
+
+            display: inline-block;
+
+            background: rgba(21, 233, 185, .12);
+            border: 1px solid #1ff1c1;
+
+            color: #3fffc9;
+
+            font-weight: 800;
+            font-size: 14px;
+
+            box-shadow: 0 0 20px rgba(30, 240, 190, .2);
+        }
+
+        /* ---------------- RISK CARD ---------------- */
+
+        .risk-summary {
+            padding: 27px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(16, 47, 77, .75),
+                    rgba(5, 21, 39, .85)
+                );
+
+            border: 1px solid rgba(36, 255, 207, .45);
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.3),
+                inset 0 1px rgba(255,255,255,.04);
+        }
+
+        .risk-summary-top {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .risk-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: rgba(24, 239, 190, .13);
+            border: 1px solid #1de7ba;
+
+            font-size: 26px;
+
+            box-shadow: 0 0 22px rgba(24,239,190,.2);
+        }
+
+        .risk-title {
+            color: #b7c6df;
+            font-size: 13px;
         }
 
         .risk-level {
-            display: inline-block;
-            padding: 8px 22px;
-            border-radius: 20px;
-            font-weight: bold;
-            background: #e5e7eb;
+            margin-top: 4px;
+
+            color: #35f4c3;
+            font-size: 28px;
+            font-weight: 800;
         }
 
-        .findings {
-            background: white;
-            border-radius: 15px;
+        .risk-summary p {
+            margin-top: 20px;
+
+            color: #9eb1cf;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* ---------------- SECTION ---------------- */
+
+        .section {
+            margin-top: 22px;
+
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(9, 29, 66, .88),
+                    rgba(4, 13, 31, .92)
+                );
+
+            border: 1px solid rgba(56, 132, 255, .35);
+
+            box-shadow: 0 15px 50px rgba(0,0,0,.25);
         }
 
-        .finding {
-            border-bottom: 1px solid #e5e7eb;
-            padding: 18px 0;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
         }
 
-        .finding:last-child {
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 21px;
+            font-weight: 750;
+        }
+
+        .section-title-icon {
+            color: #36c9ff;
+        }
+
+        .count-badge {
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background: rgba(65, 85, 180, .25);
+            border: 1px solid rgba(105, 125, 255, .35);
+
+            color: #b9c9ff;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ---------------- CHECK CARDS ---------------- */
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .check-card {
+            min-height: 175px;
+
+            padding: 20px;
+
+            border-radius: 17px;
+
+            position: relative;
+            overflow: hidden;
+
+            transition: .3s ease;
+        }
+
+        .check-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .check-card.pass {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0, 109, 95, .24),
+                    rgba(4, 31, 48, .7)
+                );
+
+            border: 1px solid rgba(16, 243, 187, .65);
+
+            box-shadow:
+                inset 0 0 30px rgba(0,255,190,.04),
+                0 0 20px rgba(0,220,170,.05);
+        }
+
+        .check-card.review {
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(116, 70, 15, .22),
+                    rgba(37, 27, 15, .75)
+                );
+
+            border: 1px solid rgba(255, 164, 45, .55);
+        }
+
+        .check-icon {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 50%;
+
+            font-size: 22px;
+
+            margin-bottom: 14px;
+        }
+
+        .pass .check-icon {
+            background: rgba(24, 239, 190, .14);
+            border: 1px solid #21eabd;
+        }
+
+        .review .check-icon {
+            background: rgba(255, 164, 45, .14);
+            border: 1px solid #ffa42d;
+        }
+
+        .check-title {
+            font-size: 15px;
+            font-weight: 750;
+        }
+
+        .status {
+            display: inline-block;
+
+            margin-top: 9px;
+
+            padding: 5px 10px;
+
+            border-radius: 15px;
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .5px;
+        }
+
+        .pass .status {
+            color: #40f7c7;
+            border: 1px solid #24e8b8;
+            background: rgba(30, 240, 190, .08);
+        }
+
+        .review .status {
+            color: #ffb449;
+            border: 1px solid #ff9f27;
+            background: rgba(255, 160, 40, .08);
+        }
+
+        .check-detail {
+            margin-top: 13px;
+
+            color: #9eafd0;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ---------------- FINDINGS ---------------- */
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            gap: 20px;
+        }
+
+        .finding-row {
+            display: grid;
+            grid-template-columns: 28px 160px 1fr 75px;
+            gap: 10px;
+
+            align-items: center;
+
+            padding: 14px 8px;
+
+            border-bottom: 1px solid rgba(90, 120, 180, .14);
+        }
+
+        .finding-row:last-child {
             border-bottom: none;
         }
 
-        .finding h3 {
-            margin: 0 0 7px;
-            font-size: 17px;
+        .finding-check {
+            width: 24px;
+            height: 24px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 800;
         }
 
-        .pass {
-            color: #15803d;
+        .finding-check.pass {
+            color: #37f5c3;
+            background: rgba(28, 238, 188, .13);
+            border: 1px solid #1de8b8;
         }
 
-        .review {
-            color: #b45309;
+        .finding-check.review {
+            color: #ffad3c;
+            background: rgba(255, 166, 45, .13);
+            border: 1px solid #ff9d25;
         }
 
-        .fail {
-            color: #dc2626;
+        .finding-name {
+            font-size: 13px;
+            font-weight: 700;
         }
 
-        .buttons {
+        .finding-detail {
+            color: #8fa4c7;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .finding-status {
             text-align: center;
-            margin-top: 30px;
+
+            padding: 5px 7px;
+
+            border-radius: 12px;
+
+            font-size: 10px;
+            font-weight: 800;
         }
 
-        button {
-            border: none;
-            padding: 13px 22px;
-            border-radius: 8px;
+        .finding-status.pass {
+            color: #40f5c5;
+            background: rgba(26,235,186,.1);
+            border: 1px solid #1be5b5;
+        }
+
+        .finding-status.review {
+            color: #ffb34b;
+            background: rgba(255,167,42,.1);
+            border: 1px solid #ff9e28;
+        }
+
+        /* ---------------- RECOMMENDATIONS ---------------- */
+
+        .recommendation {
+            display: flex;
+            gap: 14px;
+
+            padding: 15px;
+
+            margin-bottom: 11px;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(25, 54, 112, .55),
+                    rgba(10, 25, 59, .65)
+                );
+
+            border: 1px solid rgba(72, 116, 210, .25);
+
+            color: #dce6fb;
+        }
+
+        .recommendation:last-child {
+            margin-bottom: 0;
+        }
+
+        .recommendation-icon {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: rgba(255, 169, 48, .13);
+            border: 1px solid #ffa530;
+
+            color: #ffb24a;
+        }
+
+        .recommendation-text {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* ---------------- BUTTONS ---------------- */
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+
+            margin-top: 25px;
+        }
+
+        .actions form {
+            margin: 0;
+        }
+
+        .btn {
+            min-width: 230px;
+
+            padding: 15px 25px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+            font-weight: 750;
+
+            text-decoration: none;
+
             cursor: pointer;
-            font-size: 15px;
-            margin: 5px;
+
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: .3s ease;
         }
 
-        .document-btn {
-            background: #2563eb;
+        .btn-primary {
             color: white;
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #1976ff,
+                    #753cff
+                );
+
+            box-shadow:
+                0 8px 25px rgba(65, 80, 255, .25);
         }
 
-        .back-btn {
-            background: #374151;
-            color: white;
+        .btn-secondary {
+            color: #d7e3ff;
+
+            background: transparent;
+
+            border: 1px solid #4057a5;
         }
 
-        button:hover {
-            opacity: 0.9;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(70,100,255,.3);
         }
+
+        /* ---------------- FOOTER ---------------- */
+
+        footer {
+            text-align: center;
+
+            margin-top: 35px;
+
+            padding: 20px;
+
+            color: #536888;
+            font-size: 12px;
+            letter-spacing: .5px;
+        }
+
+        /* ---------------- RESPONSIVE ---------------- */
+
+        @media (max-width: 1100px) {
+
+            .hero {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .risk-summary {
+                grid-column: span 2;
+            }
+
+            .check-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .scan-status {
+                display: none;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .domain-line {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .risk-summary {
+                grid-column: auto;
+            }
+
+            .check-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .finding-row {
+                grid-template-columns: 28px 1fr 70px;
+            }
+
+            .finding-detail {
+                grid-column: 2 / 4;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h1>🛡 Company Risk Watch</h1>
-    <span>Security Risk Analysis</span>
-</div>
+<!-- ================= NAVBAR ================= -->
 
-<div class="container">
+<nav class="navbar">
 
-    <div class="domain">
-        <h2>Security Analysis Result</h2>
-        <p>
-            Domain analyzed:
-            <strong>{{ domain }}</strong>
-        </p>
-    </div>
+    <div class="brand">
 
-    <div class="risk-card">
-
-        <div class="risk-score">
-            {{ risk_score }}%
+        <div class="brand-shield">
+            🛡
         </div>
 
-        <div class="risk-level">
-            Risk Level: {{ risk_level }}
-        </div>
+        <span>Company Risk Watch</span>
 
     </div>
 
-    <div class="findings">
+    <div class="scan-status">
 
-        <h2>Security Findings</h2>
+        <div class="status-dot"></div>
 
-        {% for finding in findings %}
+        Scan Completed
 
-        <div class="finding">
+    </div>
 
-            <h3 class="
-                {% if finding.status == 'Pass' %}
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+
+        <!-- TITLE -->
+
+        <div>
+
+            <span class="hero-label">
+                SECURITY ANALYSIS
+            </span>
+
+            <h1>
+                Security Analysis
+                <span class="gradient-text">
+                    Result
+                </span>
+            </h1>
+
+            <div class="domain-line">
+
+                🌐 Domain analyzed:
+
+                <span class="domain">
+                    {{ domain }}
+                </span>
+
+            </div>
+
+            <p class="hero-description">
+                We scanned the domain for common security issues
+                and analyzed its public-facing configuration.
+            </p>
+
+        </div>
+
+
+        <!-- SCORE -->
+
+        <div class="score-area">
+
+            <div>
+
+                <div
+                    class="score-ring"
+                    style="--score: {{ risk_score }};"
+                >
+
+                    <div class="score-content">
+
+                        <div class="score-number">
+                            {{ risk_score }}%
+                        </div>
+
+                        <div class="score-label">
+                            RISK SCORE
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="text-align:center;">
+
+                    <span class="risk-pill">
+                        🛡 {{ risk_level }} RISK
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RISK SUMMARY -->
+
+        <div class="risk-summary">
+
+            <div class="risk-summary-top">
+
+                <div class="risk-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <div class="risk-title">
+                        Risk Level
+                    </div>
+
+                    <div class="risk-level">
+                        {{ risk_level }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p>
+
+                The analyzed domain has been checked
+                against common public-facing security
+                configuration indicators.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SECURITY CHECKS ================= -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <div class="section-title">
+
+                <span class="section-title-icon">
+                    🛡️
+                </span>
+
+                Security Checks Overview
+
+            </div>
+
+            <span class="count-badge">
+
+                {{ findings|length }} Checks Performed
+
+            </span>
+
+        </div>
+
+
+        <div class="check-grid">
+
+
+            {% for finding in findings %}
+
+            <div class="check-card
+                {% if finding.status == 'PASS' %}
                     pass
-                {% elif finding.status == 'Fail' %}
-                    fail
                 {% else %}
                     review
                 {% endif %}
             ">
-                {{ finding.status }} — {{ finding.title }}
-            </h3>
 
-            <p>{{ finding.message }}</p>
+
+                <div class="check-icon">
+
+                    {% if loop.index == 1 %}
+                        🌐
+                    {% elif loop.index == 2 %}
+                        🔒
+                    {% elif loop.index == 3 %}
+                        🔐
+                    {% elif loop.index == 4 %}
+                        🛡️
+                    {% else %}
+                        🔎
+                    {% endif %}
+
+                </div>
+
+
+                <div class="check-title">
+
+                    {{ finding.title }}
+
+                </div>
+
+
+                {% if finding.status == "PASS" %}
+
+                    <span class="status">
+                        ✓ PASSED
+                    </span>
+
+                {% else %}
+
+                    <span class="status">
+                        ⚠ NEEDS REVIEW
+                    </span>
+
+                {% endif %}
+
+
+                <div class="check-detail">
+
+                    {{ finding.detail }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
 
         </div>
 
-        {% endfor %}
+    </section>
 
-    </div>
 
-    {% if recommendations %}
 
-    <div class="findings" style="margin-top:25px;">
+    <!-- ================= BOTTOM DASHBOARD ================= -->
 
-        <h2>Recommendations</h2>
+    <div class="bottom-grid">
 
-        {% for recommendation in recommendations %}
-            <div class="finding">
-                <p>🔹 {{ recommendation }}</p>
+
+        <!-- ================= DETAILED FINDINGS ================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <span class="section-title-icon">
+                        📋
+                    </span>
+
+                    Detailed Security Findings
+
+                </div>
+
+                <span class="count-badge">
+                    {{ findings|length }} Findings
+                </span>
+
             </div>
-        {% endfor %}
+
+
+            {% for finding in findings %}
+
+            <div class="finding-row">
+
+
+                {% if finding.status == "PASS" %}
+
+                    <div class="finding-check pass">
+                        ✓
+                    </div>
+
+                {% else %}
+
+                    <div class="finding-check review">
+                        !
+                    </div>
+
+                {% endif %}
+
+
+                <div class="finding-name">
+
+                    {{ finding.title }}
+
+                </div>
+
+
+                <div class="finding-detail">
+
+                    {{ finding.detail }}
+
+                </div>
+
+
+                {% if finding.status == "PASS" %}
+
+                    <div class="finding-status pass">
+                        PASS
+                    </div>
+
+                {% else %}
+
+                    <div class="finding-status review">
+                        REVIEW
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+            {% endfor %}
+
+        </section>
+
+
+
+        <!-- ================= RECOMMENDATIONS ================= -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <span class="section-title-icon">
+                        💡
+                    </span>
+
+                    Security Recommendations
+
+                </div>
+
+                <span class="count-badge">
+
+                    {{ recommendations|length }} Actions
+
+                </span>
+
+            </div>
+
+
+            {% for recommendation in recommendations %}
+
+            <div class="recommendation">
+
+                <div class="recommendation-icon">
+                    ⚠
+                </div>
+
+                <div class="recommendation-text">
+
+                    {{ recommendation }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+
+            <!-- ACTIONS -->
+
+            <div class="actions">
+
+
+                <form
+                    action="/create-document"
+                    method="POST"
+                >
+
+                    <input
+                        type="hidden"
+                        name="domain"
+                        value="{{ domain }}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        📄 Create Document
+
+                    </button>
+
+                </form>
+
+
+                <a
+                    href="/"
+                    class="btn btn-secondary"
+                >
+
+                    ← Analyze Another Company
+
+                </a>
+
+
+            </div>
+
+        </section>
+
 
     </div>
 
-    {% endif %}
 
-    <div class="buttons">
 
-        <form action="/create-document" method="POST" style="display:inline;">
-            <input type="hidden" name="domain" value="{{ domain }}">
-            <input type="hidden" name="risk_score" value="{{ risk_score }}">
-            <button class="document-btn">
-                📄 Create Document
-            </button>
-        </form>
+    <!-- ================= FOOTER ================= -->
 
-        <button class="back-btn" onclick="window.location.href='/'">
-            ← Analyze Another Company
-        </button>
+    <footer>
 
-    </div>
+        🛡 Company Risk Watch
+        &nbsp; • &nbsp;
+        Security Analysis Platform
 
-</div>
+    </footer>
+
+
+</main>
 
 </body>
 </html>
